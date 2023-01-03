@@ -8,6 +8,11 @@ const cookieParser = require("cookie-parser");
 // internal imports
 const {notFoundHandler,errorHandler} = require("./middlewares/common/errorHandler");
 
+// router imports
+const loginRouter = require("./router/loginRouter");
+const userRouter = require("./router/userRouter");
+const inboxRouter = require("./router/inboxRouter");
+
 const app = express();
 dotenv.config();
 
@@ -39,6 +44,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // routing setup
+app.use("/",loginRouter);
+app.use("/user",userRouter);
+app.use("/inbox",inboxRouter);
 
 // <error handling> 
 
