@@ -4,8 +4,8 @@
   "description": "This is a test chat app built with node. Following Learn With Sumit",
   "main": "app.js",
   "scripts": {
-    "prod": "NODE_ENV=production node app.js",
-    "start": "NODE_ENV=development nodemon app.js"
+    "prod": "cross-env NODE_ENV=production node app.js",
+    "start": "cross-env NODE_ENV=development nodemon app.js"
   },
   "repository": {
     "type": "git",
