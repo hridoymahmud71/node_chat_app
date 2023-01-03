@@ -7,7 +7,7 @@ function notFoundHandler(req, res, next) {
 
 // default error handler
 function errorHandler(err, req, res, next) {
-  res.locals.errors =
+  res.locals.error =
     process.env.NODE_ENV === "development" ? err : { message: err.message };
 
   res.status(err.status || 500);
