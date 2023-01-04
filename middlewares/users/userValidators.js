@@ -1,6 +1,9 @@
 // external imports
 const { check, validationResult } = require("express-validator");
 const { unlink } = require("fs");
+const createError = require("http-errors");
+const path = require("path");
+
 
 // internal imports
 const User = require("./../../models/People");
@@ -52,7 +55,7 @@ const addUserValidatorHandler = function (req, res, next) {
   const errors = validationResult(req);
   const mappedErrors = errors.mapped();
 
-  if (Object.keys(mappedErrors) === 0) {
+  if (Object.keys(mappedErrors) == 0) {
     next();
   } else {
     // 1. remove uploaded file
