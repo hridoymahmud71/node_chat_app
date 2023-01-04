@@ -23,22 +23,62 @@
             </tr>
           </thead>
           <tbody id="users-table">
-            <tr id="">
+            <% users.forEach(user => { %>
+            <tr id="<%= user._id %>">
               <td class="name">
-                <img src="./images/user1.png" />
-                <span>User 1</span>
+                <% if (user.avatar) { %>
+                <img src="./uploads/avatars/<%= user.avatar %> " />
+                <% } else { %>
+                <img src="./images/nophoto.png" />
+                <% } %>
+
+                <span><%= user.name %></span>
               </td>
-              <td>email@email.com</td>
+              <td><%= user.email %></td>
               <td class="manage">
-                <img src="./images/trash.png" alt="Delete" />
+                <img
+                  src="./images/trash.png"
+                  alt="Delete"
+                  onclick="deleteUser('<%= user._id %>')"
+                />
               </td>
             </tr>
+            <% }) %>
           </tbody>
         </table>
       </div>
     </div>
 
-    <%- include('./partials/modals/add-user-modal.ejs') %> 
-    
+    <%- include('./partials/modals/add-user-modal.ejs') %>
+    <script>
+      // toasts
+      const deleteSuccessToast = Toastify({
+        message: "User deleted successfully",
+        duration: 3000,
+      });
+
+      const deleteFailureToast = Toastify({
+        message: "Could not delete the user !",
+        duration: 3000,
+      });
+
+      // delete user
+      async function deleteUser(userId) {
+        let response = await fetch(`/users/${userId}`, {
+          method: "DELETE",
+        });
+
+        let result = await response.json();
+
+        if (result.errors) {
+          deleteFailureToast.showToast();
+        } else {
+          deleteSuccessToast.showToast();
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+        }
+      }
+    </script>
   </body>
 </html>

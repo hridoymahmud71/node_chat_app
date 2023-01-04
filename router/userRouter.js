@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 // internal imports
-const { getUsers,addUser } = require("./../controller/userController");
+const { getUsers,addUser,deleteUser } = require("./../controller/userController");
 const decoratedHtmlResponse = require("./../middlewares/common/decoratedHtmlResponse");
 const avatarUpload = require("../middlewares/users/avatarUpload");
 const { addUserValidator,addUserValidatorHandler } = require("../middlewares/users/userValidators");
@@ -19,5 +19,7 @@ router.post(
   addUserValidatorHandler,
   addUser
 );
+
+router.delete("/:id", deleteUser);
 
 module.exports = router;
