@@ -18,7 +18,7 @@ async function addUser(req, res, next) {
   if (req.files && req.files.length > 0) {
     newUser = new User({
       ...req.body,
-      avatar: req.file[0].filename,
+      avatar: req.files[0].filename,
       password: hashedPassword,
     });
   } else {
