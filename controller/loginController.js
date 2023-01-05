@@ -16,8 +16,10 @@ async function login(req, res, next) {
   try {
     // check username
     const user = await User.findOne({
-      $or: [{ email: req.body.username }, { phone: req.body.username }],
+      $or: [{ email: req.body.username }, { mobile: req.body.username }],
     });
+
+    console.log("user: \n" ,user)
 
     if (user && user._id) {
       const isValidPassword = await bcrypt.compare(
