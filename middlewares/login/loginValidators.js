@@ -18,8 +18,8 @@ function doLoginValidationHandler(req,res,next) {
     next();
   } else {   
 
-    // show inbox page again
-    res.render("inbox", {
+    // show index page again
+    res.render("index", {
         data:{
             username:req.body.username
         },
