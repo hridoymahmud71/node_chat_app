@@ -19,7 +19,6 @@ async function login(req, res, next) {
       $or: [{ email: req.body.username }, { mobile: req.body.username }],
     });
 
-    console.log("user: \n" ,user)
 
     if (user && user._id) {
       const isValidPassword = await bcrypt.compare(

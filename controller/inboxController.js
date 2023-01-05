@@ -1,12 +1,16 @@
 
 // get login page
 function getInbox(req,res,next) {
-    console.log(process.env.APP_NAME)
-
+   
     res.render("inbox");    
 
 }
 
+async function search(req,res,next) {
+    
+}
+
 module.exports = {
-    getInbox
+    getInbox,
+    search
 }

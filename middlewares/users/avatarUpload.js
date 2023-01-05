@@ -22,7 +22,7 @@ function avatarUpload(req,res,next) {
               },
             });
           } else {
-            console.log("??")
+            
             next();
           }
     });

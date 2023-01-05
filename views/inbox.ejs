@@ -8,7 +8,7 @@
       <div id="search-container">
         <input type="text" placeholder="Search" />
       </div>
-      <div id="conversation-list">
+      <!-- <div id="conversation-list">
         <div class="conversation active">
           <img src="./images/user1.png" alt="Sumit" />
           <div class="title-text">Sumit Saha</div>
@@ -21,8 +21,10 @@
           <di class="created-date"> Apr 16 </di>
           <div class="conversation-message">This is a message</div>
         </div>
-      </div>
-      <div id="new-message-container">
+      </div> -->
+
+      <div class="nothing"><img src="./images/no-conversation.svg"></div>
+      <div id="new-message-container" class="new-message-container" onclick="openModal()">
         <a href="#">+</a>
       </div>
       <div id="chat-title">
@@ -50,20 +52,7 @@
       </div>
     </div>
 
-    <div class="modal-wrapper">
-      <div class="modal">
-        <a href="#" class="modal-close">+</a>
-        <div class="modal-title">
-          <h2>Create New Conversation</h2>
-        </div>
-        <div class="modal-body">
-          <form>
-            <input type="text" placeholder="Name" />
-            <input type="text" placeholder="Username" />
-            <input type="button" value="Submit" />
-          </form>
-        </div>
-      </div>
+    <%- include('./partials/modals/add-conversation-modal.ejs'); %>
     </div>
   </body>
 </html>
