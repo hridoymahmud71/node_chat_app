@@ -6,6 +6,7 @@ const router = express.Router();
 const { getInbox,search,addConversation,getMessages,sendMessage } = require("./../controller/inboxController");
 const decoratedHtmlResponse = require("./../middlewares/common/decoratedHtmlResponse");
 const checkLogin = require("./../middlewares/common/checkLogin");
+const attatchmentUpload = require("./../middlewares/inbox/attatchmentUpload");
 
 
 
@@ -22,6 +23,6 @@ router.post("/conversation",checkLogin, addConversation);
 router.get("/messages/:conversation_id",checkLogin, getMessages);
 
 // send messasge
-router.get("/message",checkLogin, sendMessage);
+router.post("/message",checkLogin,attatchmentUpload, sendMessage);
 
 module.exports = router;

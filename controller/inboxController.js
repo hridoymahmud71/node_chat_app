@@ -17,7 +17,7 @@ async function getInbox(req, res, next) {
       ],
     });
 
-    console.log(conversations);
+    //console.log(conversations);
 
     res.locals.data = conversations;
 
@@ -67,7 +67,7 @@ async function search(req, res, next) {
     );
 
     // response with user list
-    res.json(users);
+    res.status(200).json(users);
   } catch (err) {
     res.status(500).json({
       errors: {
@@ -141,62 +141,64 @@ async function getMessages(req, res, next) {
 }
 
 async function sendMessage(req, res, next) {
-  if (!(req.body.message || (req.files && req.files.length > 0))) {
-    res.status(500).json({
-      errors: {
-        common: "message text or attachment is required!",
-      },
-    });
-    return;
-  }
 
-  try {
-    // 1. prepare attachment queue
-    let attachments = null;
+    // console.log("\n______________________________\n",req.body,req.files,"\n______________________________\n");
+    // return;
 
-    if (req.files && req.files.length > 0) {
-      attachments = [];
+  if (req.body.message || (req.files && req.files.length > 0)) {
+    try {
+      // 1. prepare attachment queue
+      let attachments = null;
 
-      req.files.forEach((file) => {
-        attachments.push(file.filename);
+      if (req.files && req.files.length > 0) {
+        attachments = [];
+
+        req.files.forEach((file) => {
+          attachments.push(file.filename);
+        });
+      }
+
+      // 2. Store a sent message
+      const newMessage = new Message({
+        text: req.body.message,
+        attachment: attachments,
+        sender: {
+          id: req.user.userid,
+          name: req.user.username,
+          avatar: req.user.avatar || null,
+        },
+        receiver: {
+          id: req.body.receiverId,
+          name: req.body.receiverName,
+          avatar: req.body.avatar || null,
+        },
+        conversation_id: req.body.conversationId,
       });
-    }
 
-    // 2. Store a sent message
-    const newMessage = new Message({
-      text: req.body.message,
-      attachment: attachments,
-      sender: {
-        id: req.user.userid,
-        name: req.user.username,
-        avatar: req.user.avatar || null,
-      },
-      receiver: {
-        id: req.body.receiverId,
-        name: req.body.receiverName,
-        avatar: req.body.avatar || null,
-      },
-      conversation_id: req.body.conversationId,
-    });
+      const result = await newMessage.save();
 
-    const result = await newMessage.save();
+      // 3. emit message by socket @TODO
 
-    // 3. emit message by socket @TODO
-
-    // 4. send final response
-    res.status(200).json({
+      // 4. send final response
+      res.status(200).json({
         message: "Successful!",
         data: result,
       });
-
-  } catch (err) {
-    res.status(500).json({
+    } catch (err) {
+      res.status(500).json({
         errors: {
           common: {
             msg: err.message,
           },
         },
       });
+    }
+  } else {
+    res.status(500).json({
+      errors: {
+        common: "message text or attachment is required!",
+      },
+    });
   }
 }
 

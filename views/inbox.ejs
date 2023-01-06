@@ -20,6 +20,7 @@
               <% } %>
               <div class="title-text"><%= conversation.participant.name %></div>
               
+              
             </div>
           <% } else { %>
             <div class="conversation" onclick="getMessages('<%= conversation._id %>', '<%= conversation.creator.name %>')">
@@ -29,6 +30,7 @@
                 <img src="./images/nophoto.png" />
               <% } %>
               <div class="title-text"><%= conversation.creator.name %></div>
+              
               
             </div>
           <% } %>
