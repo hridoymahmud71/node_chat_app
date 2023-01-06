@@ -65,10 +65,12 @@
           <div class="nothing">Select a conversation</div>
         
       </div>
-      <div id="chat-form">
-        <img src="./images/attachment.png" alt=Add Attachment"" />
-        <input type="text" placeholder="Type a message" />
-      </div>
+      <!-- send message form -->
+      <form id="chat-form" method="post" enctype="multipart/form-data">
+        <label for="attachment"><img src="./images/attachment.png" alt="Add Attachment" /></label>
+        <input type="file" multiple name="attachment" class="hide" id="attachment" />
+        <input type="text" name="message" placeholder="Type a message" autocomplete="off" />
+      </form>
     </div>
 
     <%- include('./partials/modals/add-conversation-modal.ejs'); %>
@@ -135,6 +137,33 @@
           messagesFailureToast.showToast();
         }
     }
+
+    // message sending
+    form.onsubmit = async function (event) {
+        event.preventDefault();
+        const sendMessageFailureToast = Toastify({
+          text: "Error sending message",
+          duration: 1000,
+        });
+        // prepare the form data
+        const formData = new FormData(form);
+        formData.append('receiverId', participant.id);
+        formData.append('receiverName', participant.name);
+        formData.append('avatar', participant.avatar || '');
+        formData.append('conversationId', current_conversation_id);
+        // send the request to server
+        let response = await fetch("/inbox/message", {
+          method: "POST",
+          body: formData,
+        });
+        // get response
+        let result = await response.json();
+        if (!result.errors) {
+          form.reset(); // reset the form
+        } else {
+          sendMessageFailureToast.showToast();
+        }
+      }
 
     </script>
   </body>
