@@ -1,4 +1,4 @@
-const uploader = require("../../utilities/multipleUploader");
+const uploader = require("../../utilities/multiUploader");
 
 function attachmentUpload(req, res, next) {
   const upload = uploader(
