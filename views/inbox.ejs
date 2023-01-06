@@ -43,11 +43,11 @@
         <a href="#">+</a>
       </div>
       <div id="chat-title">
-        <span>Sumit</span>
+        <span>...</span>
         <img src="./images/trash.png" alt="Delete Conversation" />
       </div>
       <div id="chat-message-list">
-        <div class="message-row other-message">
+        <!-- <div class="message-row other-message">
           <div class="message-content">
             <img src="./images/user1.png" alt="Sumit" />
             <div class="message-text">Ok then</div>
@@ -59,7 +59,11 @@
             <div class="message-text">Lorem ipsum dolor sit amet</div>
             <div class="message-time">Apr 16</div>
           </div>
-        </div>
+        </div> -->
+
+        <% if (!data ) { %>
+          <div class="nothing"><img src="./images/no-conversation.svg"></div>
+        <% } %>
       </div>
       <div id="chat-form">
         <img src="./images/attachment.png" alt=Add Attachment"" />
@@ -75,7 +79,7 @@
       // initial
       const form = document.querySelector('#chat-form');
       const messageContainer = document.querySelector('#chat-message-list');
-      const chatTitleContainer = document.querySelector('#conversation-partner');
+      const chatTitleContainer = document.querySelector('#chat-title');
       const loggedinUserId = '<%= loggedInUser.userid %>';
       const loggedinUserName = '<%= loggedInUser.username %>';
       let participant = null; // selected conversation participant object
