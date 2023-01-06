@@ -9,7 +9,7 @@ const checkLogin = require("./../middlewares/common/checkLogin");
 
 
 
-// login page
+// inbox page
 router.get("/",decoratedHtmlResponse("Inbox"),checkLogin, getInbox);
 
 // search conversation

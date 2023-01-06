@@ -28,9 +28,11 @@ async function login(req, res, next) {
 
       if (isValidPassword) {
         const userObject = {
+          userid: user._id,
           username: user.name,
           email: user.email,
           mobile: user.mobile,
+          avatar: user.avatar,
           role: "user",
         };
 
@@ -49,12 +51,9 @@ async function login(req, res, next) {
         //   set logged in user identifier
         res.locals.loggedInUser = userObject;
 
-        // then show inbox
-        res.render("inbox", {
-          data: {
-            username: req.body.username,
-          },
-        });
+        // then redirect to inbox
+        res.redirect("/inbox");
+       
       } else {
         res.locals.data = {
             username: req.body.username,

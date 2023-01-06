@@ -67,7 +67,7 @@
       let response = await fetch("/inbox/search", {
         method: "POST",
         body: JSON.stringify({
-          user: input.value,
+          query: input.value,
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -112,7 +112,7 @@
         const response = await fetch("/inbox/conversation", {
           method: "POST",
           body: JSON.stringify({
-            participant: name,
+            participant_name: name,
             id: participant_id,
             avatar: avatar != "undefined" ? avatar : null,
           }),
