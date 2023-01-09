@@ -39,7 +39,7 @@ bower_components
 build/Release
 
 #uploaded files
-public/uploads
+#public/uploads
 
 # Dependency directories
 node_modules/

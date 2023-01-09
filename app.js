@@ -33,11 +33,25 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    //console.log("database connected");
+    console.log("database connected");
   })
   .catch((err) => {
-    //console.log("mongo connection error: \n",err);
+    console.log("mongo connection error: \n",err);
   });
+
+  // const connectDatabase = async () => {
+  //   try {
+  //     mongoose.set("useNewUrlParser", true);
+  //     mongoose.set("useUnifiedTopology", true);
+      
+  //     await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
+  
+  //     console.log("database connected");
+  //   } catch (err) {
+  //     console.log("mongo connection error: \n",err);
+  //   }
+  // };  
+  //connectDatabase();
 
 //  request parameters
 app.use(express.json());
