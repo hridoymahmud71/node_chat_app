@@ -44,7 +44,7 @@
                 <img
                   src="./images/pencil.png"
                   alt="Edit"
-                  onclick=""
+                  onclick="openEditModal('<%= user._id %>')"
                 />
               </td>
             </tr>
@@ -55,6 +55,7 @@
     </div>
 
     <%- include('./partials/modals/add-user-modal.ejs') %>
+    <%- include('./partials/modals/edit-user-modal.ejs') %>
     <script>
       // toasts
       const deleteSuccessToast = Toastify({

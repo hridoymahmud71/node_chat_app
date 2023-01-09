@@ -12,6 +12,27 @@ async function getUsers(req, res, next) {
   res.render("users", { users: users });
 }
 
+// get single user for edit
+async function getUser(req, res, next) {
+  
+  try {
+
+    const user =  await User.findById(req.params.id).exec();
+
+    res.status(200).json(user);
+    
+  } catch (err) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: "Could not load user",
+        },
+      },
+    });
+  }
+
+}
+
 async function addUser(req, res, next) {
   let newUser;
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -79,6 +100,7 @@ async function deleteUser(req, res, next) {
 
 module.exports = {
   getUsers,
+  getUser,
   addUser,
   deleteUser,
 };

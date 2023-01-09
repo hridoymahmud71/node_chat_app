@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 // internal imports
-const { getUsers,addUser,deleteUser } = require("./../controller/userController");
+const { getUsers,getUser,addUser,deleteUser } = require("./../controller/userController");
 const decoratedHtmlResponse = require("./../middlewares/common/decoratedHtmlResponse");
 const checkLogin = require("./../middlewares/common/checkLogin");
 const requireRole = require("./../middlewares/common/requireRole");
@@ -12,6 +12,8 @@ const { addUserValidator,addUserValidatorHandler } = require("../middlewares/use
 
 // users page
 router.get("/", decoratedHtmlResponse("Users"),checkLogin,requireRole(["admin"]), getUsers);
+
+router.get("/:id",checkLogin, getUser);
 
 // add user
 router.post(
