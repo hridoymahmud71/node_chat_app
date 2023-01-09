@@ -12,8 +12,8 @@
   --secondary: #11141f;
   --tertiary: #1f222e;
   --dark: #0e0e12;
-  --green: #52d794;
-  --blue: #00b3bd;
+  --green: #00B2FF;
+  --blue: #006AFF;
   --light: #fff;
   --red: indianred;
 }
@@ -777,4 +777,18 @@ input[type="submit"]:active {
     var(--blue) 100%
   );
   background: linear-gradient(to right, var(--green) 0%, var(--blue) 100%);
+}
+
+/* self */
+.credentials{
+  color: white;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 30px auto;
+  text-align: center;
+  font-size: 16px;
+  border:1px solid white;
+  padding: 16px;
 }
