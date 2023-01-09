@@ -8,6 +8,8 @@ const { doLoginValidators,doLoginValidationHandler } = require("./../middlewares
 const decoratedHtmlResponse = require("./../middlewares/common/decoratedHtmlResponse");
 const alreadyLoggedIn = require("./../middlewares/common/alreadyLoggedIn");
 
+const { unauthorized, nomatch } = require("./../controller/commonController");
+
 // login page
 router.get("/",decoratedHtmlResponse("Login"),alreadyLoggedIn, getLogin);
 
@@ -17,5 +19,13 @@ router.post("/login",decoratedHtmlResponse("Login"),doLoginValidators,doLoginVal
 
 // logout
 router.delete("/",logout);
+
+// default
+router.get(
+    "/unauthorized",
+    decoratedHtmlResponse("Unauthorized"),
+    unauthorized
+  );
+  router.get("/nomatch", nomatch);
 
 module.exports = router;

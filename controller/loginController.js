@@ -33,7 +33,7 @@ async function login(req, res, next) {
           email: user.email,
           mobile: user.mobile,
           avatar: user.avatar,
-          role: "user",
+          role: user.role,
         };
 
         // generate token

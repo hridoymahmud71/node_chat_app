@@ -11,6 +11,7 @@ const moment = require("moment");
 const {notFoundHandler,errorHandler} = require("./middlewares/common/errorHandler");
 
 // router imports
+const commonRouter = require("./router/commonRouter");
 const loginRouter = require("./router/loginRouter");
 const userRouter = require("./router/userRouter");
 const inboxRouter = require("./router/inboxRouter");
@@ -25,6 +26,7 @@ global.io = io;
 
 // set comment as app locals
 app.locals.moment = moment;
+
 
 // database connection
 mongoose
@@ -69,6 +71,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // routing setup
 app.use("/",loginRouter);
+// app.use("/default",commonRouter);
 app.use("/users",userRouter);
 app.use("/inbox",inboxRouter);
 

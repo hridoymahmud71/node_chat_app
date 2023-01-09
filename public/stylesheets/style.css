@@ -792,3 +792,8 @@ input[type="submit"]:active {
   border:1px solid white;
   padding: 16px;
 }
+
+.large-white-text{
+  font-size: 48px;
+  color: white;
+}

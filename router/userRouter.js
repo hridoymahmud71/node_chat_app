@@ -6,16 +6,18 @@ const router = express.Router();
 const { getUsers,addUser,deleteUser } = require("./../controller/userController");
 const decoratedHtmlResponse = require("./../middlewares/common/decoratedHtmlResponse");
 const checkLogin = require("./../middlewares/common/checkLogin");
+const requireRole = require("./../middlewares/common/requireRole");
 const avatarUpload = require("../middlewares/users/avatarUpload");
 const { addUserValidator,addUserValidatorHandler } = require("../middlewares/users/userValidators");
 
-// login page
-router.get("/", decoratedHtmlResponse("Users"),checkLogin, getUsers);
+// users page
+router.get("/", decoratedHtmlResponse("Users"),checkLogin,requireRole(["admin"]), getUsers);
 
 // add user
 router.post(
   "/",
   checkLogin,
+  requireRole(["admin"]),
   avatarUpload,
   addUserValidator,
   addUserValidatorHandler,
