@@ -35,11 +35,13 @@
             </div>
           <% } %>
         <% }); %>    
+
+        <% if (data && data.length == 0) { %>
+          <div class="nothing"><img src="./images/no-conversation.svg"></div>
+        <% } %>
       </div>
 
-      <% if (data && data.length == 0) { %>
-        <div class="nothing"><img src="./images/no-conversation.svg"></div>
-      <% } %>
+      
       
       <div id="new-message-container" class="new-message-container" onclick="openModal()">
         <a href="#">+</a>
