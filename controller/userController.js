@@ -67,6 +67,50 @@ async function addUser(req, res, next) {
   }
 }
 
+async function editUser(req, res, next) {
+  const user =  await User.findById(req.params.id);
+  
+  if(!user){
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: "User not found !",
+        },
+      },
+    });
+  }
+
+  user.name = req.body.name;
+  user.email = req.body.email;
+  user.mobile = req.body.mobile;
+
+  // reset password if not empty
+  if (req.body.password !== "") {    
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    user.password = hashedPassword;
+  }
+
+  if (req.files && req.files.length > 0) {   
+    user.avatar = req.files[0].filename;
+  }
+
+  //    save user
+  try {
+    const result = await user.save();
+    res.status(200).json({
+      message: "User updated !",
+    });
+  } catch (err) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: "Unexpected error !",
+        },
+      },
+    });
+  }
+}
+
 async function deleteUser(req, res, next) {
   try {
     const deletedUser = await User.findByIdAndDelete({ _id: req.params.id });
@@ -102,5 +146,6 @@ module.exports = {
   getUsers,
   getUser,
   addUser,
+  editUser,
   deleteUser,
 };

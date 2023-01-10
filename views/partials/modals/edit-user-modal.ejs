@@ -48,7 +48,11 @@
     editForm.reset();
     editModal.style.display = "none";
   }
+  
+  let userId;
+
   async function openEditModal(id) {
+    userId = id;
     try {
       let userResponse = await fetch(`/users/${id}`, {
         method: "get",
@@ -91,9 +95,9 @@
     // ----------------------------------------
 
     // preparing form data
-    const formData = new FormData(form);
+    const formData = new FormData(editForm);
     // post server request
-    let response = await fetch("/users", {
+    let response = await fetch(`/users/${userId}`, {
       method: "PUT",
       body: formData,
     });
