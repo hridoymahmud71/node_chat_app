@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const moment = require("moment");
+const Peer = require("peer");
 
 // internal imports
 const {notFoundHandler,errorHandler} = require("./middlewares/common/errorHandler");
@@ -24,6 +25,14 @@ dotenv.config();
 const io = require("socket.io")(server);
 global.io = io;
 
+// Peer connection
+const myPeer = new Peer(undefined,{
+  host:'/',
+  port:"3001"
+})
+
+global.peer = myPeer;
+
 // set comment as app locals
 app.locals.moment = moment;
 
@@ -41,19 +50,7 @@ mongoose
     console.log("mongo connection error: \n",err);
   });
 
-  // const connectDatabase = async () => {
-  //   try {
-  //     mongoose.set("useNewUrlParser", true);
-  //     mongoose.set("useUnifiedTopology", true);
-      
-  //     await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
-  
-  //     console.log("database connected");
-  //   } catch (err) {
-  //     console.log("mongo connection error: \n",err);
-  //   }
-  // };  
-  //connectDatabase();
+
 
 //  request parameters
 app.use(express.json());
