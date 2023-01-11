@@ -71,10 +71,12 @@
       </div>
       <!-- send message form -->
       <form id="chat-form" method="post" enctype="multipart/form-data">
+        <img class="call-image" src="./images/telephone.png" alt=""  onclick="callPage()"/>        
         <label for="attachment"><img src="./images/attachment.png" alt="Add Attachment" /></label>
         <input type="file" multiple name="attachment" class="hide" id="attachment" />
         <input type="text" name="message" placeholder="Type a message" autocomplete="off" />
       </form>
+      
     </div>
 
     <%- include('./partials/modals/add-conversation-modal.ejs'); %>
@@ -96,6 +98,12 @@
 
             // socket initialization
             const socket = io('<%= process.env.APP_URL %>');
+
+// redirect to call page
+function callPage() {
+  window.open(`/call/${current_conversation_id}`, '_blank');
+} 
+            
 
 // handle new/live incoming message from socket
 socket.on("new_message", data => {

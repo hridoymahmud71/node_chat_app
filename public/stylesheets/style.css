@@ -502,7 +502,8 @@ input[type="submit"]:active {
 
 #chat-form {
   display: grid;
-  grid: 51px / 32px 1fr;
+  /* grid: 51px / 32px 1fr; */
+  grid-template-columns: 1fr 1fr 10fr;
   align-content: center;
   align-items: center;
   grid-gap: 15px;
@@ -796,4 +797,9 @@ input[type="submit"]:active {
 .large-white-text{
   font-size: 48px;
   color: white;
+}
+
+.call-image{
+  width: 50px;
+  height: 50px;
 }

@@ -6,7 +6,6 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const moment = require("moment");
-const Peer = require("peer");
 
 // internal imports
 const {notFoundHandler,errorHandler} = require("./middlewares/common/errorHandler");
@@ -16,6 +15,7 @@ const commonRouter = require("./router/commonRouter");
 const loginRouter = require("./router/loginRouter");
 const userRouter = require("./router/userRouter");
 const inboxRouter = require("./router/inboxRouter");
+const callRouter = require("./router/callRouter");
 
 const app = express();
 const server = http.createServer(app);
@@ -25,13 +25,14 @@ dotenv.config();
 const io = require("socket.io")(server);
 global.io = io;
 
-// Peer connection
-const myPeer = new Peer(undefined,{
-  host:'/',
-  port:"3001"
-})
+//
+global.io.on("connection",socket =>{
+  socket.on("join-call",(conversationId,user)=>{
+    console.log("call joined",conversationId,user);
 
-global.peer = myPeer;
+  });
+});
+
 
 // set comment as app locals
 app.locals.moment = moment;
@@ -71,6 +72,7 @@ app.use("/",loginRouter);
 // app.use("/default",commonRouter);
 app.use("/users",userRouter);
 app.use("/inbox",inboxRouter);
+app.use("/call",callRouter);
 
 // <error handling> 
 
