@@ -4,7 +4,7 @@
   "description": "This is a test chat app built with node. Following Learn With Sumit",
   "main": "app.js",
   "scripts": {
-    "prod": "cross-env NODE_ENV=production node app.js peerjs --port 3001",
+    "prod": "cross-env NODE_ENV=production node app.js peerjs && --port 3001",
     "start": "cross-env NODE_ENV=development nodemon app.js"
   },
   "repository": {
