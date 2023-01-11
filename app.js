@@ -34,7 +34,15 @@ io.on("connection", (socket) => {
     console.log("call joined", conversationId, userId);
     socket.join(conversationId);
     socket.to(conversationId).emit("user-connected", userId);
+
+
+    socket.on('disconnect', () => {
+      socket.to(conversationId).emit('user-disconnected', userId)
+    })
+
   });
+
+  
 });
 
 // set comment as app locals
